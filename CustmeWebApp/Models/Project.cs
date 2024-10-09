@@ -22,7 +22,9 @@ namespace CustmeWebApp.Models
         [Display(Name = "Посилання на фото")]
         public string ImagesUrl { get; set; }
 
+        public int ServiceId { get; set; }
 
-        public ICollection<ServiceProject> ServiceProjects { get; set; }
+
+        public virtual Service Service { get; set; } = null!;
     }
 }

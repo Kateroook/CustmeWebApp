@@ -13,10 +13,14 @@ namespace CustmeWebApp.Data
         }
 
         public DbSet<Service> Services { get; set; }
-        public DbSet<Project> Works { get; set; }
-        public DbSet<ServiceProject> ServiceProjects { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+        }
     }
 }
