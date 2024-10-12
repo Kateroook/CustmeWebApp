@@ -21,7 +21,7 @@ namespace CustmeWebApp.Models
         public string? Description { get; set; }
 
         [Required(ErrorMessage ="Ціна обов'язкова")]
-        [Range(0,100000, ErrorMessage="Ціна повинна бути від 0 до 100000")]
+        [DataType(DataType.Currency)]
         public decimal? Price { get; set; }
 
         [Display(Name = "Посилання на зображення")]

@@ -16,11 +16,6 @@ namespace CustmeWebApp.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-        }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }
