@@ -7,7 +7,7 @@ namespace CustmeWebApp.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Назва роботи обов'язкова")]
-        [Display(Name = "Назва")]
+        [Display(Name = "Проєкт")]
         [MaxLength(100)]
         public string? Title { get; set; }
 

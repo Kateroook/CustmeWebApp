@@ -9,7 +9,7 @@ namespace CustmeWebApp.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Ім'я обов'язкове")]
-        [Display(Name = "Назва")]
+        [Display(Name = "Послуга")]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "Тип послуги обов'язковий")]

@@ -2,12 +2,24 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    string HasImage(Project project)
+    {
+        if (project.ImagesUrl != "" && project.ImagesUrl != null)
+        {
+            return "fa-solid fa-check";
+        }
+        else
+        {
+            return "fa-solid fa-x";
+        }
+    }
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-book"></i>Додати проєкт</a>
 </p>
 <table class="table">
     <thead>
@@ -25,10 +37,10 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImagesUrl)
+                Зображення
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service)
+                @Html.DisplayNameFor(model => model.Service.Name)
             </th>
             <th></th>
         </tr>
@@ -49,15 +61,15 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagesUrl)
+                <i class="@HasImage(item)"></i>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Service.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
             </td>
         </tr>
 }
