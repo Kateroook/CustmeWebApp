@@ -9,7 +9,7 @@ namespace CustmeWebApp.Models
 
         [Required]
         public string UserId { get; set; }
-        public bool IsDeleted { get; set; } = false;
+
 
         public ICollection<CartItem> CartItems { get; set; }
     }

@@ -20,10 +20,6 @@ namespace CustmeWebApp.Models
         [StringLength(1000, ErrorMessage ="Текст опису не повинен перевищувати 1 тис. символів")]
         public string? Description { get; set; }
 
-        [Required(ErrorMessage ="Ціна обов'язкова")]
-        [DataType(DataType.Currency)]
-        public decimal? Price { get; set; }
-
         [Display(Name = "Посилання на зображення")]
         public string? ImageUrl { get; set; }
 

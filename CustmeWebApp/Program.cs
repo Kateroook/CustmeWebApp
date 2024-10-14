@@ -21,7 +21,18 @@ var app = builder.Build();
 
 using(var scope = app.Services.CreateScope())
 {
-    await DataSeed.SeedDefaultData(scope.ServiceProvider);
+    var services = scope.ServiceProvider;
+    try
+    {
+        DataSeed.Initialize(services);
+
+    }
+    catch (Exception ex)
+    {
+
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occured while attempting to seed the database");
+    }
 }
 
     // Configure the HTTP request pipeline.

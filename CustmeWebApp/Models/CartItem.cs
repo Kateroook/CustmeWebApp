@@ -8,12 +8,13 @@ namespace CustmeWebApp.Models
         [Required]
         public int CartId { get; set; }
         [Required]
-        public int ServiceId { get; set; }
+        public int ProjectId { get; set; }
         [Required]
         public int Quantity { get; set; }
+
         [Required]
         public decimal Price { get; set; }
-        public Service Service { get; set; }
+        public Project Project { get; set; }
         public Cart Cart { get; set; }
     }
 }
