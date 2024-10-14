@@ -33,22 +33,19 @@ namespace CustmeWebApp.Data
         {
             using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                if (context.Services.Any())
+                if (!(context.Services.Any()))
                 {
-                    return;
-                }
-
                 context.Services.AddRange(
                     new Service
                     {
                         Name = "Розпис",
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                         ImageUrl = "https://i.pinimg.com/736x/11/97/69/11976974e0e5facc8643016756ceecb2.jpg"
                     },
                     new Service
                     {
                         Name = "Вишивка",
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
 
                         ImageUrl = "https://i.pinimg.com/736x/c7/a8/4d/c7a84df9508e99720d102bea8ba21d6b.jpg"
                     },
@@ -56,52 +53,57 @@ namespace CustmeWebApp.Data
                     new Service
                     {
                         Name = "Ваша ідея",
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                         ImageUrl = "https://i.pinimg.com/736x/ee/07/cd/ee07cd90bb3d43d92e0515929ebc2567.jpg"
                     }
                     );
-                if (context.Projects.Any())
-                {
-                    return;
+                    context.SaveChanges();
                 }
-                context.Projects.AddRange(
-                    new Project
-                    {
-                        Title = "Сорочка " + '"' + "Етно" + '"',
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                        DateCompleted = new DateTime(2024, 09, 11),
-                        ImagesUrl = "https://i.pinimg.com/736x/bf/72/86/bf72866fb83ca7cede291614555110e5.jpg",
-                        Price = 1000,
-                        //ServiceId = 1
-                    },
-                    new Project
-                    {
-                        Title = "Футболка " + '"' + "Етно" + '"',
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                        DateCompleted = new DateTime(2024, 09, 11),
-                        ImagesUrl = "https://i.pinimg.com/736x/b0/ee/78/b0ee786bf6dd86ebde6e5c9025b8a968.jpg",
-                        Price = 1200,
-                        // ServiceId = 1
-                    },
-                    new Project
-                    {
-                        Title = "The soul fighter",
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                        DateCompleted = new DateTime(2024, 08, 04),
-                        ImagesUrl = "https://i.pinimg.com/736x/ab/90/46/ab904682e8b76fb5022960dea0a8c833.jpg",
-                        Price = 1000,
-                        // ServiceId = 3
-                    },
-                    new Project
-                    {
-                        Title = "Качки",
-                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                        DateCompleted = new DateTime(2024, 08, 30),
-                        ImagesUrl = "https://i.pinimg.com/736x/11/97/69/11976974e0e5facc8643016756ceecb2.jpg",
-                        Price = 700,
-                        // ServiceId = 1
-                    }
-                    );
+
+                if (!(context.Projects.Any()))
+                {
+                    context.Projects.AddRange(
+                        new Project
+                        {
+                            Title = "Сорочка Етно",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            DateCompleted = DateTime.Parse("2024-09-11"),
+                            ImagesUrl = "https://i.pinimg.com/736x/bf/72/86/bf72866fb83ca7cede291614555110e5.jpg",
+                            ServiceId = 11,
+                            Price = 1000
+                        },
+                        new Project
+                        {
+                            Title = "Футболка Етно",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            DateCompleted = DateTime.Parse("2024-8-24"),
+                            ImagesUrl = "https://i.pinimg.com/736x/b0/ee/78/b0ee786bf6dd86ebde6e5c9025b8a968.jpg",
+                            ServiceId = 11,
+                            Price = 1200
+                        },
+                        new Project
+                        {
+                            Title = "The soul fighter",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                            DateCompleted = DateTime.Parse("2024-8-4"),
+                            ImagesUrl = "https://i.pinimg.com/736x/ab/90/46/ab904682e8b76fb5022960dea0a8c833.jpg",
+                            ServiceId = 11,
+                            Price = 1000
+
+                        },
+                        new Project
+                        {
+                            Title = "Качки",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                            DateCompleted = DateTime.Parse("2024-7-30"),
+                            ImagesUrl = "https://i.pinimg.com/736x/11/97/69/11976974e0e5facc8643016756ceecb2.jpg",
+                            ServiceId = 11,
+                            Price = 700
+
+                        }
+                        );
+                    context.SaveChanges() ;
+                }
             }
         }
     }

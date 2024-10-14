@@ -26,10 +26,6 @@ namespace CustmeWebApp.Models
         [Display(Name = "Посилання на фото")]
         public string? ImagesUrl { get; set; }
 
-        [Required(ErrorMessage = "Ціна обов'язкова")]
-        [Display(Name = "Ціна")]
-        [DataType(DataType.Currency)]
-
         public int ServiceId { get; set; }
 
         public virtual Service Service { get; set; } = null!;
