@@ -71,7 +71,7 @@ namespace CustmeWebApp.Data
                 context.Projects.AddRange(
                     new Project
                     {
-                        Title = "Сорочка " + '"' + "Етно" + '"',,
+                        Title = "Сорочка " + '"' + "Етно" + '"',
                         Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                         DateCompleted = new DateTime(2024,09,11),
                         ImagesUrl = "https://i.pinimg.com/736x/bf/72/86/bf72866fb83ca7cede291614555110e5.jpg",
