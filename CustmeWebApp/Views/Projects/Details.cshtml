@@ -1,13 +1,13 @@
 ﻿@model CustmeWebApp.Models.Project
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Деталі про проєкт";
 }
 
-<h1>Details</h1>
+<h1>Деталі</h1>
 
 <div>
-    <h4>Project</h4>
+    <h4>Проєкт</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -49,6 +49,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> Редагувати</a> 
+    <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Назад до списку</a>
 </div>

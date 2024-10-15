@@ -43,7 +43,7 @@
                 <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId"></select>
                 <span asp-validation-for="ServiceId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Зберегти" class="btn btn-primary" />
             </div>
         </form>
@@ -51,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Назад до списку</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3"><i class="fa-solid fa-arrow-left"></i> Назад до списку</a>
 </div>
 
 @section Scripts {

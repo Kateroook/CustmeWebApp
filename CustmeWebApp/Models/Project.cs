@@ -31,7 +31,7 @@ namespace CustmeWebApp.Models
         [Required(ErrorMessage="Послуга є обов'язковою")]
         [Display(Name = "Послуга")]
         public int ServiceId { get; set; }
-
+        [Display(Name = "Послуга")]
         public virtual Service Service { get; set; } = null!;
     }
 }
