@@ -10,9 +10,8 @@ namespace CustmeWebApp.Models
 
         [Required(ErrorMessage = "Ім'я обов'язкове")]
         [Display(Name = "Послуга")]
-        public string? Name { get; set; }
-
-        [Required(ErrorMessage = "Тип послуги обов'язковий")]
+        public string Name { get; set; }
+        
         [Display(Name = "Тип")]
         public string? Type { get; set; } //shirt, bag, skirt etc.
 

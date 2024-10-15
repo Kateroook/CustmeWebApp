@@ -22,7 +22,8 @@ namespace CustmeWebApp.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Projects.Include(p => p.Service);
+            var applicationDbContext = _context.Projects
+                .Include(p => p.Service);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -71,7 +72,7 @@ namespace CustmeWebApp.Controllers
 
         // GET: Projects/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {
+        {         
             if (id == null)
             {
                 return NotFound();
@@ -93,6 +94,11 @@ namespace CustmeWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,DateCompleted,Price,ImagesUrl,ServiceId")] Project project)
         {
+            Service service = await _context.Services.FindAsync(project.ServiceId);
+            project.Service = service;
+            ModelState.Clear();
+            TryValidateModel(project);
+
             if (id != project.Id)
             {
                 return NotFound();

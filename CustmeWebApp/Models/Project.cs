@@ -6,10 +6,11 @@ namespace CustmeWebApp.Models
     public class Project
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Назва роботи обов'язкова")]
+
+        [Required(ErrorMessage = "Назва проєкту обов'язкова")]
         [Display(Name = "Проєкт")]
         [MaxLength(100)]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
         [Display(Name = "Опис")]
         [MaxLength(500)]
@@ -17,7 +18,7 @@ namespace CustmeWebApp.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Дата створення")]
-        public DateTime DateCompleted { get; set; }
+        public DateTime? DateCompleted { get; set; }
 
         [DataType(DataType.Currency)]
         [Display(Name = "Ціна")]
@@ -26,6 +27,9 @@ namespace CustmeWebApp.Models
         [Display(Name = "Посилання на фото")]
         public string? ImagesUrl { get; set; }
 
+        
+        [Required(ErrorMessage="Послуга є обов'язковою")]
+        [Display(Name = "Послуга")]
         public int ServiceId { get; set; }
 
         public virtual Service Service { get; set; } = null!;
