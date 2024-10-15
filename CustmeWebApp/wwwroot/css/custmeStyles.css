@@ -1,0 +1,39 @@
+﻿.project-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Cart button */
+.add-to-cart-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Show button on hover */
+.project-card:hover .add-to-cart-btn {
+    display: block;
+    opacity: 1;
+}
+
+/* Button hover effect */
+.add-to-cart-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Image zoom effect */
+.project-card img {
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover img {
+    transform: scale(1.05);
+}
