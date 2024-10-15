@@ -60,6 +60,11 @@ namespace CustmeWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,DateCompleted,Price,ImagesUrl,ServiceId")] Project project)
         {
+            Service service = await _context.Services.FindAsync(project.ServiceId);
+            project.Service = service;
+            ModelState.Clear();
+            TryValidateModel(project);
+
             if (ModelState.IsValid)
             {
                 _context.Add(project);
