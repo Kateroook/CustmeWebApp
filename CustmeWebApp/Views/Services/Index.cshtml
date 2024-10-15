@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CustmeWebApp.Models.Service>
+
+@{
+    ViewData["Title"] = "Послуги";
+}
+
+<h1>Послуги</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Додати послугу</a>
+</p>
+
+<div class="row row-cols-1 row-cols-md-3 g-3">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card text-center" style="border-radius: 16px;">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" class="card-img-top " style="height: 200px;object-fit: cover;" alt="Зображення послуги">
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Type</p>
+                    <p class="card-text">@item.Description</p>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                    </div>
+                </div>               
+            </div>
+        </div>        
+    }
+</div>
