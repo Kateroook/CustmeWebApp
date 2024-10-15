@@ -8,16 +8,17 @@
 .add-to-cart-btn {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    border: none;
+    border: none;    
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+.project-card .add-to-cart-btn {
     padding: 10px;
     position: absolute;
     bottom: 20px;
     right: 10px;
     display: none; /* Hidden by default */
     opacity: 0;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
 }
-
 /* Show button on hover */
 .project-card:hover .add-to-cart-btn {
     display: block;
