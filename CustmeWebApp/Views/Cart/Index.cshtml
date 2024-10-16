@@ -1,16 +1,16 @@
 ﻿@model CustmeWebApp.Models.Cart
 
-<h1></h1>
+<h1>Кошик</h1>
 
 @if (Model.CartItems.Count > 0)
 {
     <table class="table">
         <thead>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Назва проєкту</th>
+            <th>Ціна</th>
+            <th>Кількість</th>
+            <th>Видалити</th>
         </thead>
         <tbody>
             @foreach (var item in Model.CartItems)
@@ -19,18 +19,29 @@
 
                 <tr>
                     <td>
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id">
                         <img src="@item.Project.ImagesUrl" style="height:4em;">
-
+                    </a>
                     </td>
-
                     <td>
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id">
                         @item.Project.Title
+                    </a>
                     </td>
-
                     <td>
-                        @itemsTotal.Value.ToString("C");
+                        @itemsTotal.Value.ToString("C")
                     </td>
-                    <td></td>
+                    <td>
+                        <a asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.Project.Id">
+                            <i class="fa-solid fa-minus"></i></a>
+                        <span class="badge badge-pill badge-primary" style="background-color: dodgerblue; color: white;"> @item.Quantity </span>
+                        <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Project.Id">
+                            <i class="fa-solid fa-plus"></i></a>                        
+                    </td>
+                    <td>
+                        <a  asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@item.Project.Id"
+                            class="text-danger"><i class="fa-solid fa-xmark"></i></a>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -48,6 +59,9 @@
             </tr>
         </tfoot>
     </table>
+    <a asp-controller="Cart" asp-action="ClearCart">
+        <div class="btn btn-danger float-end mr-5">
+        <i class="fa-solid fa-trash-can"></i> Очистити кошик</div> </a>
 }
 else
 {

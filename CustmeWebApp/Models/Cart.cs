@@ -82,5 +82,65 @@ namespace CustmeWebApp.Models
 
             _context.SaveChanges();
         }
+
+        public int DecreaseQuantity(Project project)
+        {
+            var cartItem = GetCartItem(project);
+            var remainingQuantity = 0;
+
+            if (cartItem != null)
+            {
+                if (cartItem.Quantity > 1)
+                {
+                    remainingQuantity = --cartItem.Quantity; 
+                }            
+                else
+                {
+                    _context.CartItems.Remove(cartItem);
+                }
+            }                
+            _context.SaveChanges();
+
+            return remainingQuantity;
+        }
+
+        public int IncreaseQuantity(Project project)
+        {
+            var cartItem = GetCartItem(project);
+            var remainingQuantity = 0;
+
+            if (cartItem != null)
+            {
+                if (cartItem.Quantity > 0)
+                {
+                    remainingQuantity = ++cartItem.Quantity;
+                }
+            }
+            _context.SaveChanges();
+
+            return remainingQuantity;
+        }
+
+        public void RemoveFromCart(Project project)
+        {
+            var cartItem = GetCartItem(project);
+
+            if(cartItem != null)
+            {
+                _context.CartItems.Remove(cartItem);
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void ClearCart()
+        {
+            var cartItems = _context.CartItems
+                .Where(ci => ci.CartId == Id);
+
+            _context.CartItems.RemoveRange(cartItems);
+
+            _context.SaveChanges();
+        }
     }
 }
