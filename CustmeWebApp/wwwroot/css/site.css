@@ -19,4 +19,30 @@ html {
 
 body {
   margin-bottom: 60px;
+  
+}
+
+.joan-regular {
+    font-family: "Joan", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ysabeau-sc-regular {
+    font-family: "Ysabeau SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.ysabeau-sc-semibold {
+    font-family: "Ysabeau SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.comforter-brush-regular {
+    font-family: "Comforter Brush", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
