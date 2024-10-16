@@ -2,7 +2,34 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero">
+    <div class="container position-relative">
+        <div class="row">
+            <div class="text-center" style="margin-top:100px;">
+                <h1 style="font-family:joan; font-size:96px;">custme</h1>
+                <h2 style="font-family:'Comforter Brush', cursive;font-weight: 400;font-size:60px;">
+                    your precious ones
+                </h2>
+                <a asp-controller="Shop" asp-action="Index" class="btn btn-link" 
+                    style="font-family: 'Ysabeau SC', sans-serif;font-optical-sizing: auto;font-weight: 600;font-size:20px; color:olivedrab">
+                    Замовити
+                </a>
+            </div>
+        </div>
+    </div>
+   @*  <img src="img/hero-left.png" class="hero-img img1" alt="Сорочка Етно">
+    <img src="img/hero-right.png" class="hero-img img2" alt="Сорочка Етно"> *@
+</section>
+
+<style>
+    .hero {
+        height: 90vh; /* Занимает 100% высоты экрана */
+        background-image: url('/img/hero-img-background.png'); /* Укажите путь к изображению */
+        background-size: cover; /* Изображение растягивается по размеру контейнера */
+        background-position: center; /* Центрируем изображение */
+        color: black; /* Цвет текста */
+        display: flex; /* Используем flexbox для центрирования содержимого */
+        /* Вертикальное выравнивание */
+        justify-content: center; /* Горизонтальное выравнивание */
+    }
+</style>
