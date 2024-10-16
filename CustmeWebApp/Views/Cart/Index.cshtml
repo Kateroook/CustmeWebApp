@@ -1,0 +1,55 @@
+﻿@model CustmeWebApp.Models.Cart
+
+<h1></h1>
+
+@if (Model.CartItems.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                var itemsTotal = item.Project.Price * item.Quantity;
+
+                <tr>
+                    <td>
+                        <img src="@item.Project.ImagesUrl" style="height:4em;">
+
+                    </td>
+
+                    <td>
+                        @item.Project.Title
+                    </td>
+
+                    <td>
+                        @itemsTotal.Value.ToString("C");
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td class="text-right">
+                    <strong>Total:</strong>
+                </td>
+                <td>
+                    <strong>@Model?.GetCartTotal().Value.ToString("C")</strong>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <h3>Кошик порожній</h3>
+}

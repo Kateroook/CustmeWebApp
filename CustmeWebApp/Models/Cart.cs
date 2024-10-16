@@ -1,5 +1,6 @@
 ﻿using CustmeWebApp.Data;
 using CustmeWebApp.Data.Migrations;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,26 @@ namespace CustmeWebApp.Models
             session.SetString("Id", cartId);
 
             return new Cart(context) { Id = cartId };
+        }
+
+        public ICollection<CartItem> GetAllCartItems()
+        {
+            if (CartItems == null)
+            {
+                CartItems = _context.CartItems
+                    .Where(ci => ci.CartId == Id)
+                    .Include(ci => ci.Project)
+                    .ToList();
+            }
+            
+            return CartItems;
+        }
+        public decimal? GetCartTotal()
+        {
+            return _context.CartItems
+                .Where(ci => ci.CartId == Id)
+                .Select(ci => ci.Project.Price * ci.Quantity)
+                .Sum();
         }
     }
 }
