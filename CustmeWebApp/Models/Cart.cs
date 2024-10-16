@@ -54,5 +54,33 @@ namespace CustmeWebApp.Models
                 .Select(ci => ci.Project.Price * ci.Quantity)
                 .Sum();
         }
+        public CartItem GetCartItem(Project project)
+        {
+            return _context.CartItems.SingleOrDefault(ci =>
+            ci.Project.Id == project.Id && ci.CartId == Id);
+        }
+
+        public void AddToCart(Project project, int quantity)
+        {
+            var cartItem = GetCartItem(project);
+
+            if (cartItem == null)
+            {
+                cartItem = new CartItem
+                {
+                    Project = project,
+                    Quantity = quantity,
+                    CartId = Id
+                };
+
+                _context.CartItems.Add(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity += quantity;
+            }
+
+            _context.SaveChanges();
+        }
     }
 }

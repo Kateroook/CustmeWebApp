@@ -12,6 +12,5 @@ namespace CustmeWebApp.Models
         public int Quantity { get; set; }
 
         public Project Project { get; set; }
-        public Cart Cart { get; set; }
     }
 }

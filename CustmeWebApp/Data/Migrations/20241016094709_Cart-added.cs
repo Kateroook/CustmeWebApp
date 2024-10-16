@@ -37,12 +37,7 @@ namespace CustmeWebApp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartItems", x => x.Id); // Визначення первинного ключа
-                    table.ForeignKey(
-                        name: "FK_CartItems_Cart_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Cart",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade); // Зовнішній ключ до таблиці Cart
+                   
                     table.ForeignKey(
                         name: "FK_CartItems_Projects_ProjectId",
                         column: x => x.ProjectId,
@@ -52,11 +47,6 @@ namespace CustmeWebApp.Data.Migrations
                 });
 
             // Індекси для оптимізації
-            migrationBuilder.CreateIndex(
-                name: "IX_CartItems_CartId",
-                table: "CartItems",
-                column: "CartId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_ProjectId",
                 table: "CartItems",
