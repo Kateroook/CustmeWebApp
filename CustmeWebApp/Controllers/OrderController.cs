@@ -1,6 +1,7 @@
 ﻿using CustmeWebApp.Data;
 using CustmeWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CustmeWebApp.Controllers
 {
@@ -8,6 +9,7 @@ namespace CustmeWebApp.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly Cart _cart;
+        //private readonly HttpContext _httpContext;
 
         public OrderController(ApplicationDbContext context, Cart cart)
         {
@@ -48,24 +50,34 @@ namespace CustmeWebApp.Controllers
 
         public void CreateOrder(Order order)
         {
-            order.OrderDate = DateTime.Now;
-
-            var cartItems = _cart.CartItems;
-
-            foreach (var item in cartItems)
+            if(HttpContext.User.Identity.IsAuthenticated)
             {
-                var orderItem =  new OrderItem()
+                order.UserId = HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                //order.UserId = ((ClaimsIdentity)User.Identity).FindFirst("Id").Value;
+
+                order.OrderDate = DateTime.Now;
+                
+                var cartItems = _cart.CartItems;
+                foreach (var item in cartItems)
                 {
-                    Quantity = item.Quantity,
-                    ProjectId = item.Project.Id,
-                    OrderId = order.Id,
-                    Price = Convert.ToInt32(item.Project.Price) * item.Quantity
-                };
+                    var orderItem = new OrderItem()
+                    {                    
+                        Quantity = item.Quantity,
+                        ProjectId = item.Project.Id,
+                        OrderId = order.Id,
+                        Price = Convert.ToInt32(item.Project.Price) * item.Quantity
+                    };
+                
                 order.OrderItems.Add(orderItem);
                 order.TotalPrice += orderItem.Price;
+                }   
+                _context.Orders.Add(order);
+                _context.SaveChanges();
             }
-            _context.Orders.Add(order);
-            _context.SaveChanges();
+            else
+            {
+                HttpContext.Response.Redirect("/Identity/Account/Login");
+            }           
         }
     }
 }
