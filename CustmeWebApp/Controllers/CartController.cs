@@ -79,9 +79,6 @@ namespace CustmeWebApp.Controllers
             _cart.ClearCart();
 
             return RedirectToAction("Index");
-        }
-
-
-        
+        }       
     }
 }

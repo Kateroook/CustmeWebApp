@@ -9,8 +9,7 @@ namespace CustmeWebApp.Models
     public class Cart
     {
         public string Id { get; set; }
-
-        [Required]
+       
         public string UserId { get; set; }
 
 
