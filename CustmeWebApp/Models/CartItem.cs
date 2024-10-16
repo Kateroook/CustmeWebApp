@@ -6,14 +6,11 @@ namespace CustmeWebApp.Models
     {
         public int Id { get; set; }
         [Required]
-        public int CartId { get; set; }
-        [Required]
-        public int ProjectId { get; set; }
+        public string CartId { get; set; }
+
         [Required]
         public int Quantity { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
         public Project Project { get; set; }
         public Cart Cart { get; set; }
     }
