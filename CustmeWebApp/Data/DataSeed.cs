@@ -69,7 +69,7 @@ namespace CustmeWebApp.Data
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                             DateCompleted = DateTime.Parse("2024-09-11"),
                             ImagesUrl = "https://i.pinimg.com/736x/bf/72/86/bf72866fb83ca7cede291614555110e5.jpg",
-                            ServiceId = 1,
+                            ServiceId = 11,
                             Price = 1000
                         },
                         new Project
@@ -78,7 +78,7 @@ namespace CustmeWebApp.Data
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                             DateCompleted = DateTime.Parse("2024-8-24"),
                             ImagesUrl = "https://i.pinimg.com/736x/b0/ee/78/b0ee786bf6dd86ebde6e5c9025b8a968.jpg",
-                            ServiceId = 1,
+                            ServiceId = 11,
                             Price = 1200
                         },
                         new Project
@@ -87,7 +87,7 @@ namespace CustmeWebApp.Data
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                             DateCompleted = DateTime.Parse("2024-8-4"),
                             ImagesUrl = "https://i.pinimg.com/736x/ab/90/46/ab904682e8b76fb5022960dea0a8c833.jpg",
-                            ServiceId = 1,
+                            ServiceId = 11,
                             Price = 1000
 
                         },
@@ -97,7 +97,7 @@ namespace CustmeWebApp.Data
                             Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                             DateCompleted = DateTime.Parse("2024-7-30"),
                             ImagesUrl = "https://i.pinimg.com/736x/11/97/69/11976974e0e5facc8643016756ceecb2.jpg",
-                            ServiceId = 1,
+                            ServiceId = 11,
                             Price = 700
 
                         }

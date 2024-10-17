@@ -160,13 +160,7 @@ namespace CustmeWebApp.Controllers
             var project = await _context.Projects.FindAsync(id);
             if (project != null)
             {
-                _context.Projects.Remove(project);           
-                
-                var cartItems = _context.CartItems.Where(c => c.Project.Id == id);
-                _context.CartItems.RemoveRange(cartItems);
-
-                var orderItems = _context.OrderItems.Where(o => o.ProjectId == id);
-                _context.OrderItems.RemoveRange(orderItems);
+                _context.Projects.Remove(project);
             }
 
             await _context.SaveChangesAsync();
