@@ -24,8 +24,11 @@ namespace CustmeWebApp.Data.Migrations
 
             modelBuilder.Entity("CustmeWebApp.Models.Cart", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -33,7 +36,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("CustmeWebApp.Models.CartItem", b =>
@@ -44,9 +47,11 @@ namespace CustmeWebApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CartId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
@@ -60,7 +65,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("CustmeWebApp.Models.Order", b =>
@@ -83,7 +88,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("CustmeWebApp.Models.OrderItem", b =>
@@ -112,7 +117,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("CustmeWebApp.Models.Project", b =>
@@ -148,7 +153,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("CustmeWebApp.Models.Service", b =>
@@ -175,7 +180,7 @@ namespace CustmeWebApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

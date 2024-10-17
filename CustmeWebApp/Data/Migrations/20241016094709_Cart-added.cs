@@ -9,6 +9,11 @@ namespace CustmeWebApp.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CartItems");
+
+            migrationBuilder.DropTable(
+                name: "Cart");
 
             // Створюємо таблицю Cart заново
             migrationBuilder.CreateTable(
