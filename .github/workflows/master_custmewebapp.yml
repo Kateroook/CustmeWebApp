@@ -51,6 +51,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'CustmeWebApp'
-          slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A84BCB6E35F941D5A9BBA4215E0CC7B8 }}
