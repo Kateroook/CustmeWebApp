@@ -28,7 +28,7 @@ namespace CustmeWebApp.Models
         public string? ImagesUrl { get; set; }
 
         
-        [Required(ErrorMessage="Послуга є обов'язковою")]
+        //[Required(ErrorMessage="Послуга є обов'язковою")]
         [Display(Name = "Послуга")]
         public int ServiceId { get; set; }
 

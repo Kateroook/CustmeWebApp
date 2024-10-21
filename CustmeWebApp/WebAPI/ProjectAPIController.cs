@@ -4,6 +4,7 @@ using CustmeWebApp.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -38,17 +39,12 @@ public class ProjectsController : ControllerBase
 
     // POST: api/projects
     [HttpPost]
-    public async Task<ActionResult<Project>> CreateProject(Project project)
+    public async Task<IActionResult> CreateProject(int id, Project project)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         _context.Projects.Add(project);
         await _context.SaveChangesAsync();
 
-        return Ok("Project created");
+        return CreatedAtAction("GetProject", new { id = project.Id }, project);
     }
 
     // PUT: api/projects/{id}
@@ -59,7 +55,6 @@ public class ProjectsController : ControllerBase
         {
             return BadRequest();
         }
-
         _context.Entry(project).State = EntityState.Modified;
 
         try
@@ -68,7 +63,7 @@ public class ProjectsController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!_context.Projects.Any(e => e.Id == id))
+            if (!ProjectExists(id))
             {
                 return NotFound();
             }
@@ -77,7 +72,6 @@ public class ProjectsController : ControllerBase
                 throw;
             }
         }
-
         return Ok("Project updated");
     }
 
@@ -95,5 +89,9 @@ public class ProjectsController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok("Project deleted");
+    }
+    private bool ProjectExists(int id)
+    {
+        return _context.Projects.Any(e => e.Id == id);
     }
 }
