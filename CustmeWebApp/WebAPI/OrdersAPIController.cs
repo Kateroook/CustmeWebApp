@@ -56,7 +56,7 @@ namespace CustmeWebApp.WebAPI
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            return Ok("Order created");
+            return CreatedAtAction("GetOrder", new { id = order.Id }, order);
         }
 
         // PUT: api/orders/5

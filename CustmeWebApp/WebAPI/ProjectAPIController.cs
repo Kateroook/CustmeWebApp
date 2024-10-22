@@ -44,7 +44,7 @@ public class ProjectsAPIController : ControllerBase
         _context.Projects.Add(project);
         await _context.SaveChangesAsync();
 
-        return Ok("Project created");
+        return CreatedAtAction("GetProject", new { id = project.Id }, project);
     }
 
     // PUT: api/projects/{id}

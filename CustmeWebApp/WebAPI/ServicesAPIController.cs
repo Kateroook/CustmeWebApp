@@ -40,7 +40,7 @@ using Microsoft.EntityFrameworkCore;
             _context.Services.Add(service);
             await _context.SaveChangesAsync();
 
-            return Ok("Project created");
+            return CreatedAtAction("GetService", new { id = service.Id }, service);
         }
 
 
