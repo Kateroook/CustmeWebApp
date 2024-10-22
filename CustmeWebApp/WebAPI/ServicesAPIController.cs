@@ -34,31 +34,6 @@ using Microsoft.EntityFrameworkCore;
 
             return Ok(service);
         }
-
-    [HttpPost]
-    [Route("api/projects")]
-    public async Task<IActionResult> CreateProject([FromBody] Project project)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        // Перевірка чи існує послуга з таким ServiceId
-        var service = await _context.Services.FindAsync(project.ServiceId);
-        if (service == null)
-        {
-            return NotFound("Послуга з таким ServiceId не знайдена");
-        }
-
-        // Додаємо новий проект
-        _context.Projects.Add(project);
-        await _context.SaveChangesAsync();
-
-        return Ok("Project created");
-    }
-
-
     [HttpPost]
         public async Task<ActionResult<Service>> PostService(Service service)
         {
