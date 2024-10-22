@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors.Infrastructure;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CustmeWebApp.Models
 {
@@ -28,11 +29,12 @@ namespace CustmeWebApp.Models
         public string? ImagesUrl { get; set; }
 
         
-        //[Required(ErrorMessage="Послуга є обов'язковою")]
+        [Required(ErrorMessage="Послуга є обов'язковою")]
         [Display(Name = "Послуга")]
         public int ServiceId { get; set; }
-
+        
+        [JsonIgnore]
         [Display(Name = "Послуга")]
-        public virtual Service Service { get; set; }
+        public virtual Service? Service { get; set; }
     }
 }

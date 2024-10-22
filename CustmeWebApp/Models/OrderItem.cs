@@ -1,4 +1,6 @@
-﻿namespace CustmeWebApp.Models
+﻿using System.Text.Json.Serialization;
+
+namespace CustmeWebApp.Models
 {
     public class OrderItem
     {
@@ -8,7 +10,9 @@
 
         public int OrderId { get; set; }
         public int ProjectId { get; set; }
+        [JsonIgnore]
         public Order Order { get; set; }
+        [JsonIgnore]
         public Project Project { get; set; }
     }
 }

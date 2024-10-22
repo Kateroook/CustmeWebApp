@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CustmeWebApp.Models
 {
@@ -23,6 +24,7 @@ namespace CustmeWebApp.Models
         public string? ImageUrl { get; set; }
 
         //Slug read only property
+        [JsonIgnore]
         public string Slug => $"(Name)-(Type)".ToLower().Replace(" ", "-");
 
     }

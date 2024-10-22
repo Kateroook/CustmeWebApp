@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-    [Route("api/[controller]")]
+    [Route("api/services")]
     [ApiController]
-    public class ServicesController : ControllerBase
+    public class ServicesAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ServicesController(ApplicationDbContext context)
+        public ServicesAPIController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -32,37 +32,34 @@ using Microsoft.EntityFrameworkCore;
                 return NotFound();
             }
 
-            return service;
+            return Ok(service);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateService(int id, Service service)
+    [HttpPost]
+    [Route("api/projects")]
+    public async Task<IActionResult> CreateProject([FromBody] Project project)
+    {
+        if (!ModelState.IsValid)
         {
-            if (id != service.Id)
-            {
-                return BadRequest();
-            }
-            _context.Entry(service).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ServiceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            return BadRequest(ModelState);
         }
 
-        [HttpPost]
+        // Перевірка чи існує послуга з таким ServiceId
+        var service = await _context.Services.FindAsync(project.ServiceId);
+        if (service == null)
+        {
+            return NotFound("Послуга з таким ServiceId не знайдена");
+        }
+
+        // Додаємо новий проект
+        _context.Projects.Add(project);
+        await _context.SaveChangesAsync();
+
+        return Ok("Project created");
+    }
+
+
+    [HttpPost]
         public async Task<ActionResult<Service>> PostService(Service service)
         {
             _context.Services.Add(service);
@@ -98,7 +95,7 @@ using Microsoft.EntityFrameworkCore;
             }
         }
 
-        return NoContent();
+        return Ok("Service updated");
     }
 
     [HttpDelete("{id}")]
@@ -113,7 +110,7 @@ using Microsoft.EntityFrameworkCore;
             _context.Services.Remove(service);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Service deleted");
         }
 
         private bool ServiceExists(int id)

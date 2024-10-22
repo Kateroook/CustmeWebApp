@@ -10,7 +10,7 @@ namespace CustmeWebApp.Models
 
         [Required]
         public int Quantity { get; set; }
-
+        
         public Project Project { get; set; }
     }
 }
