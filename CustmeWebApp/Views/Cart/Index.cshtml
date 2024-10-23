@@ -24,7 +24,7 @@
                     </a>
                     </td>
                     <td>
-                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Project.Id" style="color:olivedrab">
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id" style="color:olivedrab">
                         @item.Project.Title
                     </a>
                     </td>
@@ -35,7 +35,7 @@
                         <a asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.Project.Id">
                             <i class="fa-solid fa-minus" style="color:olivedrab; padding:12px;"></i>
                         </a>
-                        <span class="badge badge-pill badge-primary" style="background-color: olivedrab; color: white; font-size:20px;"> @item.Quantity </span>
+                        <span class="badge badge-pill badge-primary" style="background-color: olivedrab; color: white; font-size:20px; padding:8px;"> @item.Quantity </span>
                         <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Project.Id">
                             <i class="fa-solid fa-plus" style="color:olivedrab; padding:12px;"></i>
                         </a>

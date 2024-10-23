@@ -2,7 +2,6 @@ using CustmeWebApp.Data;
 using CustmeWebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,15 +25,6 @@ builder.Services
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
-
-builder.Services.AddAuthentication()
-        .AddGoogle(options =>
-        {
-            IConfigurationSection googleAuthSection =
-                builder.Configuration.GetSection("Authentication:Google");
-            options.ClientId = googleAuthSection["ClientId"];
-            options.ClientSecret = googleAuthSection["ClientSecret"];
-        });
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddJsonOptions(options =>
