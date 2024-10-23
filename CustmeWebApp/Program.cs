@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,12 +31,13 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication()
-.AddCookie()
+    .AddCookie()
 .AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    //googleOptions.CallbackPath = "/signin-google"; 
+    googleOptions.CallbackPath = "/signin-google";
+    googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
 });
 
 builder.Services.AddControllersWithViews();
@@ -62,6 +64,13 @@ builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 });
 
 
@@ -107,7 +116,6 @@ app.UseSession();
 
 app.UseCors("AllowAll");
 
-app.MapControllers();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
