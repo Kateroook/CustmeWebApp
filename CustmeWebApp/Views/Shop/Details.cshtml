@@ -1,61 +1,132 @@
 ﻿@model CustmeWebApp.Models.Project
 
-@{
-    ViewData["Title"] = "Про проєкт";
-}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Головне зображення продукту -->
+        <div class="col-lg-9">
+            <div class="product-main-img">
+                <img src="@Model.ImagesUrl" style="width: 100%;height: 100%;" class="img-fluid" alt="@Model.Title" />
+            </div>
 
-<h1>Деталі</h1>
+            <!-- Галерея зображень -->
+@*             <div class="product-gallery mt-4">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
+                    </div>
+                    <div class="col-3">
+                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
+                    </div>
+                    <div class="col-3">
+                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
+                    </div>
+                </div>
+            </div> *@ 
+            <section>
+                <h2 class="product-title">@Model.Title</h2>
+                <!-- Опис -->
+                <p class="product-description">
+                    @Model.Description
+                </p>
+                <div class="row">
+                    <div class="col-6">
+                        @Model.Service?.Name
+                    </div>
+                    <div class="col-6">
+                        Створено @Model.DateCompleted?.ToString("d")
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-8">
+                        <h2 class="product-title">
+                            Про послугу @Model.Service?.Name
+                        </h2>
+                        <p class="product-description">
+                            @Model.Service?.Name
+                            @Model.Service?.Description
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <img src="@Model.Service?.ImageUrl" class="img-fluid" style="width: 100%;height: 100%;" alt="@Model.Service?.Name" />
+                    </div>
+                </div>
+            </section>
+        </div>
 
-<div class="row">
-    <div class="col-5">
-        <h4>Проєкт</h4>
-        <hr />
-        <dl class="row">
+        <!-- Деталі продукту -->
+        <div class="col-lg-3" style="position:fixed;">
+            <h1 class="product-title">@Model.Title</h1>
 
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DateCompleted)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateCompleted)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Service)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Service.Name)
-            </dd>
-        </dl>
-        <div>
-            <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Назад до списку</a>
+            <!-- Ціна -->
+            <p class="product-price">@Model.Price?.ToString("C")</p>
 
-            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id"
-               class="btn btn-primary float-right add-to-cart-btn">
-                <i class="fa-solid fa-cart-plus"></i>
-                В кошик
+            <p>@Model.Service?.Name
+                @Model.Service?.Type
+            </p>
+            Безкоштовна доставка від 2500грн 
+            <!-- Кнопка додавання в кошик -->
+            <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                <input type="hidden" name="projectId" value="@Model.Id" />
+                <button type="submit" class="btn btn-primary btn-lg">Додати в кошик</button>
+            </form>
+            <!-- Кнопка зв'язку (Instagram) -->
+            <a href="https://www.instagram.com/custme/" class="btn btn-secondary btn-lg sticky-button mt-2" target="_blank">
+                Зв'язатися зі мною
             </a>
         </div>
     </div>
 
-    <div class="col-4">
-        <img src="@Model.ImagesUrl" class="w-100" />
+    <!-- Інші рекомендовані продукти (опціонально) -->
+    @* <div class="related-products mt-5">
+        <h2>Інші роботи</h2>
+        <div class="row">
+            @foreach (var relatedProject in Model.RelatedProjects)
+            {
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="@relatedProject.ImagesUrl" class="card-img-top" alt="@relatedProject.Title" />
+                        <div class="card-body">
+                            <h5 class="card-title">@relatedProject.Title</h5>
+                            <p class="card-text">@relatedProject.Price?.ToString("C")</p>
+                            <a href="@Url.Action("Details", "Projects", new { id = relatedProject.Id })" class="btn btn-secondary">Переглянути</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div> *@
     </div>
- 
 </div>
+
+<!-- Додаткові стилі -->
+<style>
+    .product-main-img {
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .product-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .product-description {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .product-gallery .img-thumbnail {
+        max-height: 100px;
+        object-fit: cover;
+        border: 1px solid #ccc;
+    }
+</style>
