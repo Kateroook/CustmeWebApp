@@ -1,6 +1,6 @@
 ﻿@model CustmeWebApp.Models.Cart
 
-<h1>Кошик</h1>
+<h1 style="padding-bottom:80px;">Кошик</h1>
 
 @if (Model.CartItems.Count > 0)
 {
@@ -24,7 +24,7 @@
                     </a>
                     </td>
                     <td>
-                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id">
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id" style="color:olivedrab">
                         @item.Project.Title
                     </a>
                     </td>
@@ -33,10 +33,12 @@
                     </td>
                     <td>
                         <a asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.Project.Id">
-                            <i class="fa-solid fa-minus"></i></a>
-                        <span class="badge badge-pill badge-primary" style="background-color: dodgerblue; color: white;"> @item.Quantity </span>
+                            <i class="fa-solid fa-minus" style="color:olivedrab; padding:12px;"></i>
+                        </a>
+                        <span class="badge badge-pill badge-primary" style="background-color: olivedrab; color: white; font-size:20px; padding:8px;"> @item.Quantity </span>
                         <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Project.Id">
-                            <i class="fa-solid fa-plus"></i></a>                        
+                            <i class="fa-solid fa-plus" style="color:olivedrab; padding:12px;"></i>
+                        </a>
                     </td>
                     <td>
                         <a  asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@item.Project.Id"
@@ -64,7 +66,7 @@
         <i class="fa-solid fa-trash-can"></i> Очистити кошик</div> </a>  
         
         <a asp-controller="Order" asp-action="Checkout">
-        <div class="btn btn-success float-end mr-5" style="margin-right:8px;">
+        <div class="btn btn-order float-end mr-5" style="margin-right:8px;">
             Замовити<i class="fa-solid fa-angles-right"></i>
         </div>
     </a>
@@ -73,3 +75,25 @@ else
 {
     <h3>Кошик порожній</h3>
 }
+
+<style>
+    .btn-danger{
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    .btn-order{
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-order:hover {
+        background-color: #333;
+        color:white;
+    }
+    
+</style>

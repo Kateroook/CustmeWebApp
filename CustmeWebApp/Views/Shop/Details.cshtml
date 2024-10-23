@@ -2,29 +2,12 @@
 
 <div class="container mt-5">
     <div class="row">
-        <!-- Головне зображення продукту -->
         <div class="col-lg-9">
             <div class="product-main-img">
-                <img src="@Model.ImagesUrl" style="width: 100%;height: 100%;" class="img-fluid" alt="@Model.Title" />
+                <img src="@Model.ImagesUrl" style="width: 100%; height: 100%;" class="img-fluid" alt="@Model.Title" />
             </div>
-
-            <!-- Галерея зображень -->
-@*             <div class="product-gallery mt-4">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
-                    </div>
-                    <div class="col-3">
-                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
-                    </div>
-                    <div class="col-3">
-                        <img src="@Model.ImagesUrl" class="img-thumbnail" alt="@Model.Title" />
-                    </div>
-                </div>
-            </div> *@ 
-            <section>
+            <section сlass="mt-4">
                 <h2 class="product-title">@Model.Title</h2>
-                <!-- Опис -->
                 <p class="product-description">
                     @Model.Description
                 </p>
@@ -37,72 +20,66 @@
                     </div>
                 </div>
             </section>
-            <section>
+            <section сlass ="mt-4">
                 <div class="row">
                     <div class="col-8">
                         <h2 class="product-title">
                             Про послугу @Model.Service?.Name
                         </h2>
-                        <p class="product-description">
-                            @Model.Service?.Name
+                        <p class="product-description">                            
                             @Model.Service?.Description
                         </p>
                     </div>
                     <div class="col-4">
-                        <img src="@Model.Service?.ImageUrl" class="img-fluid" style="width: 100%;height: 100%;" alt="@Model.Service?.Name" />
+                        <img src="@Model.Service?.ImageUrl" class="img-fluid rounded shadow" style="width: 100%;height: 100%;" alt="@Model.Service?.Name" />
                     </div>
                 </div>
+            </section>              
+            <section style="margin-top: 160px;">
+                <h2>Схожі проекти</h2>
+                @{
+                    var similarProjects = ViewBag.SimilarProjects as List<CustmeWebApp.Models.Project>;
+                }
+                @if (similarProjects != null && similarProjects.Any())
+                {
+                    @Html.Partial("_SimilarProjectsPartial", similarProjects)
+                }
+                else
+                {
+                    <p>Схожі проекти не знайдено.</p>
+                }
             </section>
-        </div>
 
-        <!-- Деталі продукту -->
-        <div class="col-lg-3" style="position:fixed;">
+        </div>
+        <!-- Right sidebar -->
+        <div class="col-lg-3 sticky-column">
             <h1 class="product-title">@Model.Title</h1>
-
-            <!-- Ціна -->
             <p class="product-price">@Model.Price?.ToString("C")</p>
+            <p>@Model.Service?.Name @Model.Service?.Type</p>
 
-            <p>@Model.Service?.Name
-                @Model.Service?.Type
-            </p>
-            Безкоштовна доставка від 2500грн 
-            <!-- Кнопка додавання в кошик -->
-            <form asp-controller="Cart" asp-action="AddToCart" method="post">
-                <input type="hidden" name="projectId" value="@Model.Id" />
-                <button type="submit" class="btn btn-primary btn-lg">Додати в кошик</button>
-            </form>
-            <!-- Кнопка зв'язку (Instagram) -->
-            <a href="https://www.instagram.com/custme/" class="btn btn-secondary btn-lg sticky-button mt-2" target="_blank">
-                Зв'язатися зі мною
-            </a>
+            <div class="button-container">
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id"
+                   class="btn btn-primary btn-lg btn-add-to-cart">
+                   Додати в кошик
+                </a>               
+                <a href="https://www.instagram.com/custme/" class="btn btn-secondary btn-lg mt-2 btn-contact-me" target="_blank">
+                    Зв'язатися зі мною
+                </a>
+                <span>безкоштовна доставка замовлень на суму від 2500грн</span>
+            </div>
         </div>
-    </div>
 
-    <!-- Інші рекомендовані продукти (опціонально) -->
-    @* <div class="related-products mt-5">
-        <h2>Інші роботи</h2>
-        <div class="row">
-            @foreach (var relatedProject in Model.RelatedProjects)
-            {
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="@relatedProject.ImagesUrl" class="card-img-top" alt="@relatedProject.Title" />
-                        <div class="card-body">
-                            <h5 class="card-title">@relatedProject.Title</h5>
-                            <p class="card-text">@relatedProject.Price?.ToString("C")</p>
-                            <a href="@Url.Action("Details", "Projects", new { id = relatedProject.Id })" class="btn btn-secondary">Переглянути</a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div> *@
     </div>
 </div>
 
 <!-- Додаткові стилі -->
 <style>
+    section{
+        margin-top:160px;
+    }
+
     .product-main-img {
-        border: 1px solid #e6e6e6;
+        
         padding: 10px;
         margin-bottom: 20px;
     }
@@ -129,4 +106,56 @@
         object-fit: cover;
         border: 1px solid #ccc;
     }
+
+    .sticky-column {
+        position: sticky;
+        top: 80px; 
+        height: 100%;
+        overflow-y: auto; 
+    }
+
+    .sticky-column {
+        position: sticky;
+        top: 80px;
+        padding-left: 40px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .button-container {
+        margin-top: 20em; 
+        padding-top: 20px;
+/*         border-top: 1px solid #ccc; */
+    }
+
+    .btn-add-to-cart {
+        background-color: black;
+        color: white;
+        border: none; 
+        width: 100%; 
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: #333; 
+        }
+
+    .btn-contact-me {
+        background-color: transparent;
+        color: olivedrab; 
+        border: 2px solid olivedrab;
+        width: 100%; 
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-contact-me:hover {
+            background-color: olivedrab;
+            color: white; 
+        }
 </style>

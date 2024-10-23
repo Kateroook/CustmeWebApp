@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CustmeWebApp.Models.Project>
+
+<div class="row">
+    @foreach (var project in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card project-card h-100" style="position: relative; overflow: hidden;">
+                <a class="card-link" asp-controller="Shop" asp-action="Details" asp-route-id="@project.Id">
+                    <img src="@project.ImagesUrl" class="card-img-top" alt="@project.Title" style="height: 300px; object-fit: cover;">
+                </a>
+
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@project.Title</h5>
+                    <p class="card-text text-muted">@project.Price?.ToString("C")</p>
+                </div>
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@project.Id"
+                   class="btn btn-primary float-right add-to-cart-btn">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>

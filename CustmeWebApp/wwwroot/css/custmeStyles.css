@@ -1,4 +1,16 @@
-﻿.project-card {
+﻿body {
+    font-family: "Ysabeau SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+h1, h2 {
+    font-family: "Ysabeau SC", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+.project-card {
     position: relative;
     overflow: hidden;
     cursor: pointer;
