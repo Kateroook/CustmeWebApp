@@ -1,4 +1,6 @@
-﻿using CustmeWebApp.Models;
+﻿using CustmeWebApp.Constants;
+using CustmeWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustmeWebApp.Data
@@ -33,6 +35,56 @@ namespace CustmeWebApp.Data
         {
             using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
+                if (!(context.Roles.Any()))
+                {
+                    var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+                    var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+                    roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString())).GetAwaiter().GetResult(); 
+                    roleManager.CreateAsync(new IdentityRole(Roles.Owner.ToString())).GetAwaiter().GetResult(); 
+                    roleManager.CreateAsync(new IdentityRole(Roles.User.ToString())).GetAwaiter().GetResult(); ;
+                    var admin = new IdentityUser()
+                    {
+                        UserName = "admin@gmail.com",
+                        Email = "admin@gmail.com",
+                        EmailConfirmed = true,
+                    };
+
+                    var userInDb = userManager.FindByEmailAsync(admin.Email).GetAwaiter().GetResult(); ;
+                    if (userInDb is null)
+                    {
+                        userManager.CreateAsync(admin, "Admin@123").GetAwaiter().GetResult(); ;
+                        userManager.AddToRoleAsync(admin, Roles.Admin.ToString()).GetAwaiter().GetResult(); ;
+                    }
+
+                    var owner = new IdentityUser()
+                    {
+                        UserName = "severyna.kate@gmail.com",
+                        Email = "severyna.kate@gmail.com",
+                        EmailConfirmed = true,
+                    };
+                    var ownerInDb = userManager.FindByEmailAsync(owner.Email).GetAwaiter().GetResult(); ;
+                    if (ownerInDb is null)
+                    {
+                        userManager.CreateAsync(owner, "Admin@123").GetAwaiter().GetResult(); ;
+                        userManager.AddToRoleAsync(owner, Roles.Owner.ToString()).GetAwaiter().GetResult(); ;
+                    }
+                    else
+                    {
+                        var userRoles = userManager.GetRolesAsync(ownerInDb).GetAwaiter().GetResult(); ;
+
+                        if (!userRoles.Contains(Roles.Owner.ToString()))
+                        {
+                            foreach (var role in userRoles)
+                            {
+                                userManager.RemoveFromRoleAsync(ownerInDb, role).GetAwaiter().GetResult(); ;
+                            }
+
+                            userManager.AddToRoleAsync(ownerInDb, Roles.Owner.ToString()).GetAwaiter().GetResult(); ;
+                        }
+                    }
+                }
+
                 if (!(context.Services.Any()))
                 {
                 context.Services.AddRange(
