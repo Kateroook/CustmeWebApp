@@ -1,4 +1,7 @@
 ﻿@model CustmeWebApp.Models.Project
+<head>
+    <meta name="description" content="Отримайте індивідуальні послуги кастомізації одягу та аксесуарів з швидкою доставкою. Унікальні вироби та професійний підхід.">
+</head>
 
 <div class="container mt-5">
     <div class="row">
@@ -59,7 +62,7 @@
 
             <div class="button-container">
                 <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id"
-                   class="btn btn-primary btn-lg btn-add-to-cart">
+                   class="btn btn-primary btn-lg btn-text-add-to-cart">
                    Додати в кошик
                 </a>               
                 <a href="https://www.instagram.com/custme/" class="btn btn-secondary btn-lg mt-2 btn-contact-me" target="_blank">
@@ -74,88 +77,5 @@
 
 <!-- Додаткові стилі -->
 <style>
-    section{
-        margin-top:160px;
-    }
-
-    .product-main-img {
-        
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    .product-title {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
-
-    .product-price {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .product-description {
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
-
-    .product-gallery .img-thumbnail {
-        max-height: 100px;
-        object-fit: cover;
-        border: 1px solid #ccc;
-    }
-
-    .sticky-column {
-        position: sticky;
-        top: 80px; 
-        height: 100%;
-        overflow-y: auto; 
-    }
-
-    .sticky-column {
-        position: sticky;
-        top: 80px;
-        padding-left: 40px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .button-container {
-        margin-top: 20em; 
-        padding-top: 20px;
-/*         border-top: 1px solid #ccc; */
-    }
-
-    .btn-add-to-cart {
-        background-color: black;
-        color: white;
-        border: none; 
-        width: 100%; 
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-        .btn-add-to-cart:hover {
-            background-color: #333; 
-        }
-
-    .btn-contact-me {
-        background-color: transparent;
-        color: olivedrab; 
-        border: 2px solid olivedrab;
-        width: 100%; 
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-        .btn-contact-me:hover {
-            background-color: olivedrab;
-            color: white; 
-        }
+ 
 </style>
