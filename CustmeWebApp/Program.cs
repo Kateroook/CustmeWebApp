@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Globalization;
+
+
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("uk-UA");
+Thread.CurrentThread.CurrentCulture = CultureInfo.DefaultThreadCurrentCulture;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
 //    builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection")));
-//else
+//else 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection")));
 
@@ -98,9 +103,22 @@ if (app.Environment.IsDevelopment())
     else
     {
         app.UseExceptionHandler("/Home/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
     }
+app.Use(async (context, next) =>
+{
+    var request = context.Request;
+
+    if (request.Host.Host.StartsWith("www"))
+    {
+        var newHost = request.Host.Host.Substring(4);
+        var newUrl = $"{request.Scheme}://{newHost}{request.Path}{request.QueryString}";
+        context.Response.Redirect(newUrl, permanent: true);
+        return;
+    }
+
+    await next();
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

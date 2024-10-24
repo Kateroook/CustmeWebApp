@@ -1,4 +1,20 @@
 ﻿<!DOCTYPE html>
+<configuration>
+    <system.webServer>
+        <rewrite>
+            <rules>
+                <rule name="Redirect to www" stopProcessing="true">
+                    <match url="(.*)" />
+                    <conditions>
+                        <add input="{HTTP_HOST}" pattern="^[^www]" />
+                    </conditions>
+                    <action type="Redirect" url="https://www.{HTTP_HOST}/{R:1}" redirectType="Permanent" />
+                </rule>
+            </rules>
+        </rewrite>
+    </system.webServer>
+</configuration>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
