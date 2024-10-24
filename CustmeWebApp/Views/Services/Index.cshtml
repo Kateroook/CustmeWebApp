@@ -5,11 +5,12 @@
 }
 
 <h1>Послуги</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Додати послугу</a>
-</p>
-
+@if (User.Identity.IsAuthenticated && (User.IsInRole("Owner") || User.IsInRole("Admin")))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Додати послугу</a>
+    </p>
+}
 <div class="row row-cols-1 row-cols-md-3 g-3">
     @foreach (var item in Model)
     {
@@ -23,11 +24,14 @@
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Type</p>
                     <p class="card-text">@item.Description</p>
+
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("Owner") || User.IsInRole("Admin"))){
                     <div class="btn-group">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success"><i class="fa-solid fa-circle-info"></i></a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                     </div>
+                    }
                 </div>               
             </div>
         </div>        

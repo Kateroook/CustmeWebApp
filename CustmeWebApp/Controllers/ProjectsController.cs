@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CustmeWebApp.Data;
 using CustmeWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using CustmeWebApp.Constants;
 
 namespace CustmeWebApp.Controllers
 {
+    [Authorize(Roles ="Owner, Admin")]
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _context;
