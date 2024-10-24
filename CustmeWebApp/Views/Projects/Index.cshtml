@@ -64,7 +64,7 @@
                 <i class="@HasImage(item)"></i>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Service.Name)
+                @($"{item.Service.Name} {item.Service.Type}")
             </td>
             <td>
                 <div class="btn-group">                        
