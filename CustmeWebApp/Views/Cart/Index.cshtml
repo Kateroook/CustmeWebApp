@@ -19,12 +19,12 @@
 
                 <tr>
                     <td>
-                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id">
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Project.Id">
                         <img src="@item.Project.ImagesUrl" style="height:4em;">
                     </a>
                     </td>
                     <td>
-                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Id" style="color:olivedrab">
+                    <a  asp-controller="Shop" asp-action="Details" asp-route-id="@item.Project.Id" style="color:olivedrab">
                         @item.Project.Title
                     </a>
                     </td>
