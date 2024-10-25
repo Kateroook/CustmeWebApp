@@ -52,17 +52,10 @@ namespace CustmeWebApp.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            var services = _context.Services
-                .Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.Name + " " + s.Type 
-                }).ToList();
-
-            ViewData["ServiceId"] = new SelectList(services, "Value", "Text");
-
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name");
             return View();
         }
+
         // POST: Projects/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -98,16 +91,7 @@ namespace CustmeWebApp.Controllers
             {
                 return NotFound();
             }
-
-            var services = _context.Services
-        .Select(s => new SelectListItem
-        {
-            Value = s.Id.ToString(),
-            Text = s.Name + " " + s.Type
-        }).ToList();
-
-            ViewData["ServiceId"] = new SelectList(services, "Value", "Text", project.ServiceId);
-
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", project.ServiceId);
             return View(project);
         }
 
