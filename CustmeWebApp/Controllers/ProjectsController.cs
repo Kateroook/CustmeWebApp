@@ -52,7 +52,15 @@ namespace CustmeWebApp.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name");
+            var services = _context.Services
+    .Select(s => new SelectListItem
+    {
+        Value = s.Id.ToString(),
+        Text = s.Name + " " + s.Type
+    }).ToList();
+
+            ViewData["ServiceId"] = new SelectList(services, "Value", "Text");
+
             return View();
         }
 
@@ -91,7 +99,16 @@ namespace CustmeWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Name", project.ServiceId);
+
+            var services = _context.Services
+       .Select(s => new SelectListItem
+       {
+           Value = s.Id.ToString(),
+           Text = s.Name + " " + s.Type
+       }).ToList();
+
+            ViewData["ServiceId"] = new SelectList(services, "Value", "Text", project.ServiceId);
+
             return View(project);
         }
 
