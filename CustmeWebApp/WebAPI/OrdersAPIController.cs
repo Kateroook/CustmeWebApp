@@ -18,15 +18,43 @@ namespace CustmeWebApp.WebAPI
         {
             _context = context;
         }
-        // GET: api/orders
+
+        // GET: api/orders?skip=0&limit=10 or GET: api/orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<IActionResult> GetOrders(int? skip = null, int? limit = null)
         {
-            var orders = await _context.Orders.Include(o => o.OrderItems)
-                                              .ThenInclude(oi => oi.Project)
-                                              .ToListAsync();
+            IQueryable<Order> query = _context.Orders;
+
+            if (skip.HasValue && limit.HasValue)
+            {
+                limit = limit > 100 ? 100 : limit.Value;
+                query = query.Skip(skip.Value).Take(limit.Value);
+            }
+
+            var orders = await query.ToListAsync();
+
+            if (skip.HasValue && limit.HasValue)
+            {
+                var totalCount = await _context.Orders.CountAsync();
+                var nextLink = (skip + limit < totalCount)
+                    ? Url.Action("GetOrders", null, new { skip = skip + limit, limit }, Request.Scheme)
+                    : null;
+
+                return Ok(new
+                {
+                    Data = orders,
+                    Pagination = new
+                    {
+                        Skip = skip,
+                        Limit = limit,
+                        NextLink = nextLink
+                    }
+                });
+            }
+
             return Ok(orders);
         }
+
 
         // GET: api/orders/5
         [HttpGet("{id}")]

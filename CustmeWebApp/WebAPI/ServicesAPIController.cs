@@ -15,14 +15,44 @@ using Microsoft.EntityFrameworkCore;
         {
             _context = context;
         }
-        //GET: api/services
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Service>>> GetServices()
+
+    // GET: api/services?skip=0&limit=10 or GET: api/services
+    [HttpGet]
+    public async Task<IActionResult> GetServices(int? skip = null, int? limit = null)
+    {
+        IQueryable<Service> query = _context.Services;
+
+        if (skip.HasValue && limit.HasValue)
         {
-            return await _context.Services.ToListAsync();
+            limit = limit > 100 ? 100 : limit.Value;
+            query = query.Skip(skip.Value).Take(limit.Value);
         }
 
-        [HttpGet("{id}")]
+        var services = await query.ToListAsync();
+
+        if (skip.HasValue && limit.HasValue)
+        {
+            var totalCount = await _context.Services.CountAsync();
+            var nextLink = (skip + limit < totalCount)
+                ? Url.Action("GetServices", null, new { skip = skip + limit, limit }, Request.Scheme)
+                : null;
+
+            return Ok(new
+            {
+                Data = services,
+                Pagination = new
+                {
+                    Skip = skip,
+                    Limit = limit,
+                    NextLink = nextLink
+                }
+            });
+        }
+
+        return Ok(services);
+    }
+
+    [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(int id)
         {
             var service = await _context.Services.FindAsync(id);

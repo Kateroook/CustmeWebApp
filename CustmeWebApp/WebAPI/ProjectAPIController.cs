@@ -17,13 +17,42 @@ public class ProjectsAPIController : ControllerBase
         _context = context;
     }
 
-    // GET: api/projects
+    // GET: api/projects?skip=0&limit=10 or GET: api/projects
     [HttpGet]
-    public async Task<IActionResult> GetProjects()
+    public async Task<IActionResult> GetProjects(int? skip = null, int? limit = null)
     {
-        var projects = await _context.Projects.ToListAsync();
+        IQueryable<Project> query = _context.Projects;
+
+        if (skip.HasValue && limit.HasValue)
+        {
+            limit = limit > 100 ? 100 : limit.Value;
+            query = query.Skip(skip.Value).Take(limit.Value);
+        }
+
+        var projects = await query.ToListAsync();
+
+        if (skip.HasValue && limit.HasValue)
+        {
+            var totalCount = await _context.Projects.CountAsync();
+            var nextLink = (skip + limit < totalCount)
+                ? Url.Action("GetProjects", null, new { skip = skip + limit, limit }, Request.Scheme)
+                : null;
+
+            return Ok(new
+            {
+                Data = projects,
+                Pagination = new
+                {
+                    Skip = skip,
+                    Limit = limit,
+                    NextLink = nextLink
+                }
+            });
+        }
+
         return Ok(projects);
     }
+
 
     // GET: api/projects/{id}
     [HttpGet("{id}")]
